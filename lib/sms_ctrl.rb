@@ -10,6 +10,8 @@ module SmsCtrl
 
     # 非线程安全，只应该用在单线程环境中配置，例如rails加载
     def register name, options
+      name = name.to_s
+
       new_case = SmsCtrl::Case.new(name, options)
       @cases[name] = new_case
 
@@ -21,13 +23,13 @@ module SmsCtrl
     end
 
     def get name
-      @cases[name]
+      @cases[name.to_s]
     end
 
     alias [] get
 
     def set_default c
-      @default_case = @cases[c]
+      @default_case = @cases[c.to_s]
     end
 
     def default
