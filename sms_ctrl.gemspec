@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["david"]
   spec.email         = ["davidqhr@gmail.com"]
 
-  spec.summary       = %q{发送短信控制}
-  spec.description   = %q{发送短信控制}
+  spec.summary       = %q{短信重试、请求次数控制、短信验证码缓存}
+  spec.description   = %q{短信重试、请求次数控制、短信验证码缓存}
   spec.homepage      = "https://github.com/davidqhr/sms_ctrl"
   spec.license       = "MIT"
 
