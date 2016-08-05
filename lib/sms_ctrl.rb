@@ -27,7 +27,7 @@ module SmsCtrl
     alias [] get
 
     def set_default c
-      @default_case = c
+      @default_case = @cases[c]
     end
 
     def default
