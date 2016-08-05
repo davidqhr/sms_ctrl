@@ -48,6 +48,10 @@ SmsCtrl.register( "user_reset_password", {
   }
 })
 
+# 发送验证码
+
+SmsCtrl.send_sms(mobile, code, params)
+
 # 检查验证码是否匹配
 
 SmsCtrl["register_user"].check_code "13000000000", '231232'
