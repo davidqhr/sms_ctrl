@@ -24,14 +24,12 @@ Or install it yourself as:
 # confing/initializes/sms_ctrl.rb
 
 # 设置debug模式，所有验证码都是123456，不会走sender
-
 SmsCtrl.debug = true
 
 # 设置cache，需要支持 read(key), write(key, expires_in: 10)
-# SmsCtrl.cache = Rails.cache
+SmsCtrl.cache = Rails.cache
 
-# 注册一个控制模块
-
+# 注册控制模块
 SmsCtrl.register( "register_user", {
   # retry_limit: 55,
   # expires: 30 * 60,
@@ -49,16 +47,17 @@ SmsCtrl.register( "user_reset_password", {
 })
 
 # 发送验证码
-
-SmsCtrl.send_sms(mobile, code, params)
+SmsCtrl["register_user"].send_sms(mobile, code, params)
+SmsCtrl["user_reset_password"].send_sms(mobile, code, params)
 
 # 检查验证码是否匹配
-
 SmsCtrl["register_user"].check_code "13000000000", '231232'
 SmsCtrl["user_reset_password"].check_code "13000000000", '231232'
 
-# SmsCtrl.set_default("register_user")
-# SmsCtrl.check_code "13000000000", '231232'
+# 设置默认
+SmsCtrl.set_default("register_user")
+SmsCtrl.send_sms(mobile, code, params)
+SmsCtrl.check_code "13000000000", '231232'
 
 ```
 
