@@ -1,28 +1,11 @@
 module SmsCtrl
   class Case
     attr_accessor :retry_limit, :expires_in,
-      :mobile_regexp, :sender,
-      :errors
-
-    def default_options
-      {
-        retry_limit: 55,
-        expires_in: 30 * 60,
-        mobile_regexp: /^1[3|4|5|7|8]\d{9}$/,
-        sender: -> (mobile, code, params) { warn "No message sender set for case #{@name}" },
-      }
-    end
-
-    def default_errors
-      {
-        illegal_mobile: '请输入正确的手机号码',
-        retry_limit: '操作太频繁，请稍后再试'
-      }
-    end
+      :mobile_regexp, :sender, :errors
 
     def initialize name, options = {}
       @name = name
-      options = default_options.merge(options)
+      options = SmsCtrl.default_options.merge(options)
 
       self.retry_limit   = options[:retry_limit]
       self.expires_in    = options[:expires_in]
@@ -30,9 +13,9 @@ module SmsCtrl
       self.sender        = options[:sender]
 
       if options[:errors]
-        self.errors = default_errors.merge(options[:errors])
+        self.errors = SmsCtrl.default_errors.merge(options[:errors])
       else
-        self.errors = default_errors
+        self.errors = SmsCtrl.default_errors
       end
     end
 

@@ -29,6 +29,20 @@ SmsCtrl.debug = true
 # 设置cache，需要支持 read(key), write(key, expires_in: 10)
 SmsCtrl.cache = Rails.cache
 
+# 设置默认配置，可以在case配置中覆盖
+SmsCtrl.default_options = {
+  retry_limit: 55,
+  expires_in: 30 * 60,
+  mobile_regexp: /^1[3|4|5|7|8]\d{9}$/,
+  sender: -> (mobile, code, params) { warn "No message sender set for case #{@name}" },
+}
+
+# 设置默认错误，可以在case配置中覆盖
+SmsCtrl.default_errors = {
+  illegal_mobile: '请输入正确的手机号码',
+  retry_limit: '操作太频繁，请稍后再试'
+}
+
 # 注册控制模块
 SmsCtrl.register( "register_user", {
   # retry_limit: 55,

@@ -6,7 +6,7 @@ module SmsCtrl
   @cases = {}
 
   class << self
-    attr_accessor :debug, :cache
+    attr_accessor :debug, :cache, :default_options, :default_errors
 
     # 非线程安全，只应该用在单线程环境中配置，例如rails加载
     def register name, options
@@ -16,6 +16,22 @@ module SmsCtrl
       @cases[name] = new_case
 
       @default_case = new_case if @cases.size == 1
+    end
+
+    def default_options
+      @default_options ||= {
+        retry_limit: 55,
+        expires_in: 30 * 60,
+        mobile_regexp: /^1[3|4|5|7|8]\d{9}$/,
+        sender: -> (mobile, code, params) { warn "No message sender set for case #{@name}" },
+      }
+    end
+
+    def default_errors
+      @default_errors ||= {
+        illegal_mobile: '请输入正确的手机号码',
+        retry_limit: '操作太频繁，请稍后再试'
+      }
     end
 
     def clear
