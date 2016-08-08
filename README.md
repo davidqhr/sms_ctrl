@@ -46,7 +46,7 @@ SmsCtrl.default_errors = {
 # 注册控制模块
 SmsCtrl.register( "register_user", {
   # retry_limit: 55,
-  # expires: 30 * 60,
+  # expires_in: 30 * 60,
   sender: ->(mobile, code, params) {
     # 发送逻辑
   }
@@ -54,7 +54,7 @@ SmsCtrl.register( "register_user", {
 
 SmsCtrl.register( "user_reset_password", {
   # retry_limit: 55,
-  # expires: 30 * 60,
+  # expires_in: 30 * 60,
   sender: ->(mobile, code, params) {
     # 发送逻辑
   }
