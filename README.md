@@ -23,7 +23,7 @@ Or install it yourself as:
 ```ruby
 # confing/initializes/sms_ctrl.rb
 
-# 设置debug模式，所有验证码都是123456，不会走sender
+# 设置debug模式，调用send_sms后，不会执行真正的sender，可以直接使用123456当作验证码
 SmsCtrl.debug = true
 
 # 设置cache，需要支持 read(key), write(key, expires_in: 10)
